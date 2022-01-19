@@ -10,9 +10,7 @@ int getTotalSize(){
 	int size;
 	printMsg("type","totalSize");
 	scanf("%d",&size);
-	char *temp[4];
-	sprintf(temp,"%d",size);
-	printMsg("TotalSize",temp);
+	printf("TotalSize %d \n",size);
 	return size;
 }
 
@@ -20,16 +18,14 @@ void getStringsFromUser(char **array, int size){
 	for(int i=0; i < size; i++){
 		char buf[100];
 
-		char *temp[8];
-		sprintf(temp,"%d st", i);
-		printMsg("type Msg",temp);
+		printf("type Msg %d \n",i);
 		
 		scanf("%s", buf);
 
 		int strSize = strlen(buf);
 		array[i] = (char*)malloc(sizeof(char) * strSize + 1);
 		strcpy(array[i],buf);
-		printf("copy data %s\n",array[i]);
+		printf("copy data %s  size %d\n",array[i],strSize);
 		
 	}
 }

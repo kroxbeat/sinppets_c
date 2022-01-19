@@ -3,7 +3,12 @@
 #include <string.h> 
 
 int main(){
-    int arraySize = 4, n = 0, l = 0; 
+    int arraySize, n = 0, l = 0; 
+
+	printf("typetotalSize\n");
+ 	scanf("%d",&arraySize);
+	printf("TotalSize %d \n",arraySize);    
+
     char * names[arraySize];
     char buffer[30]; 
 
