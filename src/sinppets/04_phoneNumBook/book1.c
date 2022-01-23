@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define BUF_SIZE 100
 #define CAPACITY 100
@@ -7,6 +8,7 @@
 char *names[CAPACITY];
 char *numbers[CAPACITY];
 int useIndex = 0;
+int delCount = 0;
 
 int findName(char* name){
     for(int i=0; i < useIndex; i++){
@@ -18,7 +20,9 @@ int findName(char* name){
 }
 
 void status(){
+    printf("Total Count is %d\n\n",useIndex - delCount);
     for(int i=0; i < useIndex; i++){
+            if(names[i] != NULL)
             printf("%s - %s\n",names[i],numbers[i]);
         }    
 }
@@ -47,6 +51,29 @@ void add(){
     
 }
 
+void del(){
+    char buf1[CAPACITY];
+
+    //name
+    scanf("%s", buf1);
+    int index;
+
+    if ((index = findName(buf1)) > -1)
+    {
+        free(names[index]);
+        free(numbers[index]);
+
+        names[index] = NULL;
+        numbers[index] = NULL;
+        printf("%s user del Success!\n",buf1);
+        delCount++;
+    }
+    else
+    {
+        printf("%s user not exist ! \n",buf1);
+    }
+}
+
 int main(int argc, char const *argv[])
 {
     char command[BUF_SIZE];
@@ -58,10 +85,12 @@ int main(int argc, char const *argv[])
             add();
         else if( strcmp(command , "status") == 0 )
             status();
-
-        
-
-
+        else if( strcmp(command , "del") == 0 )
+            del();
+        else if( strcmp(command , "exit") == 0 )
+            break;
+        else
+            printf("No command !!\n");
     }
     return 0;
 }
