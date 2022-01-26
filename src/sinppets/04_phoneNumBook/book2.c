@@ -2,6 +2,10 @@
 #include <string.h>
 #include <stdlib.h>
 
+/* 
+    //파일 저장 , 파일 불러오기 , 이름차순 정렬
+*/
+
 #define BUF_SIZE 100
 #define CAPACITY 100
 

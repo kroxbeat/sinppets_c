@@ -5,7 +5,7 @@
 
 //버퍼 사이즈를 제한 ,입력을 한줄씩 읽어서 출력
 
-int lead_line(char buf[] , int limit){
+int read_line(char buf[] , int limit){
     int size = 0;
     char ch;
 
@@ -26,7 +26,7 @@ int main(int argc, char const *argv[])
     while (1)
     {
         printf("$ ");
-        int len = lead_line(buf,BUF_SIZE);
+        int len = read_line(buf,BUF_SIZE);
         printf("%s:%d\n",buf,len);
         
         if(!strcmp(buf,exitStr))
