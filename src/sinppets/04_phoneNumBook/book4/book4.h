@@ -1,3 +1,6 @@
+#ifndef __BOOK4_H__
+#define __BOOK4_H__
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -5,6 +8,7 @@
 #define BUF_SIZE 100
 #define DELIMIT " "
 #define INIT_CAPACITY 3
+
 
 typedef struct
 {
@@ -19,12 +23,12 @@ typedef struct
     파일에 저장 , 읽어오기 가능
 */
 
-char **names;
-char **numbers;
+extern char **names;
+extern char **numbers;
 
-Person **persons;
-int bookSize = 0;
-int useIndex = 0;
+extern Person **persons;
+extern int bookSize;
+extern int useIndex;
 
 
 void init_bookSize_malloc();
@@ -37,3 +41,5 @@ void save(char* fileName);
 void loadFile(char* fileName);
 int read_line(char buf[] , int limit);
 int read_line_FromFile(FILE *fp,char buf[] , int limit);
+
+#endif

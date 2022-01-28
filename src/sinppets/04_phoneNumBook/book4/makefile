@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-Wall
 LDFLAGS=-lc
 LDLIBS=
-OBJS=book4.o
+OBJS=book4.o main.o
 TARGET= main
 
 all:$(TARGET)
