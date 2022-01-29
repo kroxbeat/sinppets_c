@@ -4,7 +4,7 @@ char **names;
 char **numbers;
 
 Person **persons;
-int bookSize = 0;
+int bookSize = INIT_CAPACITY-1;
 int useIndex = 0;
 
 int main(int argc, char const *argv[])
@@ -16,7 +16,7 @@ int main(int argc, char const *argv[])
 
     while(1){
         printf("> ");
-        if(read_line(command_line,99) <= 0)
+        if(read_line(command_line,BUF_SIZE-1) <= 0)
             continue;
         //command_line DELIMIT 기준으로 나누기
         command = strtok(command_line,DELIMIT);
@@ -26,11 +26,11 @@ int main(int argc, char const *argv[])
         
         if( strcmp(command , "add") == 0 ){
             //필수 인자값이 null 일때
-            if(arg1 == NULL || arg2 == NULL){
-                printf("To add user : add name 12345\n");
+            if(arg1 == NULL){
+                printf("To add user : add name\n");
                 continue;
             }
-            add(arg1,arg2); //add kang 4474-7714
+            add(arg1); //add kang
         }    
         else if( strcmp(command , "status") == 0 )
             status(); //status

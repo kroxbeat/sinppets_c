@@ -35,7 +35,7 @@ void init_bookSize_malloc();
 int findName(char* name);
 void status();
 void bookSize_reAlloc();
-void add(char* name , char* number);
+void add(char* name);
 void del(char* name);
 void save(char* fileName);
 void loadFile(char* fileName);
