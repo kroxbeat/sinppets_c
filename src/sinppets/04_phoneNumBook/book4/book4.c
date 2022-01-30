@@ -2,30 +2,31 @@
 
 int findName(char* name){
     for(int i=0; i < useIndex; i++){
-        if( strcmp( names[i], name) == 0)
+        if( strcmp( persons[i]->name, name) == 0)
         return i;
     }
 
     return -1;
 }
 
+char* isNull(char* data){
+    return (data == NULL)? DELIMIT : data;
+}
+
 void status(){
-    printf("Total Count is %d\n\n",useIndex);
+    printf("Total Count %d, bookSize %d\n\n",useIndex,bookSize);
     for(int i=0; i < useIndex; i++){
             if(persons[i] != NULL)
-            printf("%s - %s %s %s\n",persons[i]->name,persons[i]->phoneNumber,persons[i]->email,persons[i]->groupName);
+            printf("%s - phone:%s email:%s group:%s\n",persons[i]->name,isNull(persons[i]->phoneNumber),isNull(persons[i]->email),isNull(persons[i]->groupName));
         }    
 }
 
 void bookSize_reAlloc(){
-    printf("bokkSize_reAlloc called %d\n");
     Person** tmp1 = (Person**)malloc(sizeof(Person*) * (INIT_CAPACITY + bookSize));
 
-    printf("bokkSize_reAlloc 1 %d\n");
     for(int i=0; i < bookSize; i++){
        tmp1[i] = persons[i];
     }
-    printf("bokkSize_reAlloc 5 %d\n");
     free(persons);        
 
     persons = tmp1;
@@ -40,7 +41,6 @@ void add(char* name){
     
     if ((index = findName(name)) < 0)
     {
-             printf("use index %d == bookSize %d\n", useIndex,bookSize);
         if(useIndex == bookSize){
 
             bookSize_reAlloc();
@@ -63,17 +63,19 @@ void add(char* name){
         printf("input phoneNumber\n>");
         if(read_line(buf,BUF_SIZE-1) > 0)
         persons[n+1]->phoneNumber = strdup(buf);
+        else persons[n+1]->phoneNumber = DELIMIT;
         //email
         printf("input email\n>");
         if(read_line(buf,BUF_SIZE-1) > 0)
         persons[n+1]->email = strdup(buf);
+        else persons[n+1]->email = DELIMIT;
         //group
         printf("input group\n>");
         if(read_line(buf,BUF_SIZE-1) > 0)
         persons[n+1]->groupName = strdup(buf);
+        else persons[n+1]->groupName = DELIMIT;
 
         printf("%s user add Success!\n",name);
-        printf("%s - %s %s %s\n",persons[n+1]->name,persons[n+1]->phoneNumber,persons[n+1]->email,persons[n+1]->groupName);
         useIndex++;
     }
     else
@@ -89,13 +91,12 @@ void del(char* name){
 
     if ((index = findName(name)) > -1)
     {
-        free(names[index]);
-        free(numbers[index]);
-
-        names[index] = names[useIndex-1];
-        numbers[index] = numbers[useIndex-1];
+        free(persons[index]);
+        for (; index < useIndex; index++)
+        {
+            persons[index] = persons[index + 1];
+        }
         useIndex--;
-
         printf("%s user del Success!\n",name);
     }
     else
@@ -112,7 +113,7 @@ void save(char* fileName){
 
     for (int i = 0; i < useIndex; i++)
     {
-        fprintf(fp,"%s %s\n",names[i],numbers[i]);
+        fprintf(fp,"%s#%s#%s#%s#\n",persons[i]->name,persons[i]->phoneNumber,persons[i]->email,persons[i]->groupName);
     }
     fclose(fp);
 
@@ -127,16 +128,18 @@ void loadFile(char* fileName){
 
     int count = 0;
     //더 가져올것이 없을때 까지 반복
-    char buf2[BUF_SIZE];
-    char buf3[BUF_SIZE];
-    while (fscanf(fp,"%s",buf2) != EOF)
-    {   
-        if(count == bookSize){
+    char buf1[BUF_SIZE];
+    while (read_line_FromFile(fp,buf1,BUF_SIZE-1) != 0)
+    {
+        if(bookSize > 0 && count == bookSize){
             bookSize_reAlloc();
         }
-        fscanf(fp,"%s",buf3);
-        names[count] = strdup(buf2);
-        numbers[count] = strdup(buf3);
+        persons[count] = (Person*)malloc(sizeof(Person));
+        persons[count]->name = strdup( strtok(buf1,DELIMIT2) );
+        persons[count]->phoneNumber = strdup( strtok(NULL,DELIMIT2) );
+        persons[count]->email = strdup( strtok(NULL,DELIMIT2) );
+        persons[count]->groupName = strdup( strtok(NULL,DELIMIT2) );
+
 
         count++;
     }
