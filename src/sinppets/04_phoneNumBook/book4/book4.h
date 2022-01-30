@@ -42,5 +42,6 @@ void save(char* fileName);
 void loadFile(char* fileName);
 int read_line(char buf[] , int limit);
 int read_line_FromFile(FILE *fp,char buf[] , int limit);
+void freePerson(Person* p);
 
 #endif

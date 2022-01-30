@@ -85,13 +85,21 @@ void add(char* name){
     
 }
 
+void freePerson(Person* p){
+    free(p->name);
+    free(p->phoneNumber);
+    free(p->email);
+    free(p->groupName);
+    free(p);
+}
+
 void del(char* name){
 
     int index;
 
     if ((index = findName(name)) > -1)
     {
-        free(persons[index]);
+        freePerson(persons[index]);
         for (; index < useIndex; index++)
         {
             persons[index] = persons[index + 1];
