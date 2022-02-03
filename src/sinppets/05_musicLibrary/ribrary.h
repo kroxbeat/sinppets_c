@@ -14,7 +14,7 @@ typedef struct artist Artist;
 typedef struct snode SNode;
 typedef struct song Song;
 
-extern Artist* artist_bucket[26];
+extern Artist* artist_bucket[256];
 extern SNode* song_bucket[10];
 extern int total_song_count;
 

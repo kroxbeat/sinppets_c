@@ -1,19 +1,30 @@
 #include "ribrary.h"
 
-Artist* artist_bucket[26];
+Artist* artist_bucket[256];
 SNode* song_bucket[10];
 int total_song_count = 0;
+
 
 //새로운 노래 추가
 void add(){
     char buf[BUF_SIZE];
+    char buf2[BUF_SIZE];
     printf("  Artist: ");
-    char* artist = strdup(read_line(buf,BUF_SIZE-1));
+    read_line(buf,BUF_SIZE-1);
+    char* artist = strdup(buf);
     
     printf("  Title: ");
-    char* title = strdup(read_line(buf,BUF_SIZE-1));
+    read_line(buf,BUF_SIZE-1);
+    char* title = strdup(buf2);
     
-    
+    int artist_bucket_index = artist[0];
+    int song_bucket_index = ++total_song_count % 10;
+
+    //아티스트 추가
+    if(artist_bucket[artist_bucket_index] == NULL){
+        //첫 추가 이면 헤드 생성
+        //여기구현중 artist_bucket[artist_bucket_index] = (Artist*)malloc(sizeof(Artist*));
+    }
 
 }
 

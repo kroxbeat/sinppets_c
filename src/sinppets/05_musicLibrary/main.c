@@ -13,14 +13,14 @@ void command_process(){
         if(strcmp(cmd1,"add") == 0){
             add();
         }else if(strcmp(cmd1,"status") == 0){
-            status();
+            //status();
         }
     }
 }
 /* 
     음악 재생 (fake) 프로그램
     
-    artist bucket 26개 (알파벳 순서)
+    artist bucket 256개
     단방향 연결 리스트 구성
 
     song bucket 10개 ( index % )
