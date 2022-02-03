@@ -7,6 +7,7 @@
 
 #define BUF_SIZE 100
 #define DELIMIT " "
+#define DELIMIT2 "#"
 #define INIT_CAPACITY 3
 
 
@@ -30,16 +31,17 @@ extern Person **persons;
 extern int bookSize;
 extern int useIndex;
 
-
+char* isNull(char* data);
 void init_bookSize_malloc();
 int findName(char* name);
 void status();
 void bookSize_reAlloc();
-void add(char* name , char* number);
+void add(char* name);
 void del(char* name);
 void save(char* fileName);
 void loadFile(char* fileName);
 int read_line(char buf[] , int limit);
 int read_line_FromFile(FILE *fp,char buf[] , int limit);
+void freePerson(Person* p);
 
 #endif
