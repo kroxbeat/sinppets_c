@@ -14,8 +14,8 @@ typedef struct artist Artist;
 typedef struct snode SNode;
 typedef struct song Song;
 
-extern Artist* artist_bucket[];
-extern SNode* song_bucket[];
+extern Artist** artist_bucket;
+extern SNode** song_bucket;
 extern int total_song_count;
 
 struct artist
@@ -52,5 +52,6 @@ Artist* makeNewArtist(char* artist);
 void search();
 Song* findSongByIndex(int musicIndex);
 void play(int musicindex);
+void init();
 
 #endif

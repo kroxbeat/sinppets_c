@@ -1,8 +1,14 @@
 #include "ribrary.h"
 
-Artist* artist_bucket[ARTIST_BUCKET_SIZE];
-SNode* song_bucket[SONG_BUCKET_SIZE];
-int total_song_count = 0;
+Artist** artist_bucket;
+SNode** song_bucket;
+int total_song_count;
+
+void init(){
+    artist_bucket = (Artist**)malloc(sizeof(Artist*) * ARTIST_BUCKET_SIZE);
+    song_bucket = (SNode**)malloc(sizeof(SNode*) * SONG_BUCKET_SIZE);
+    total_song_count = 0;
+}
 
 void play(int musicIndex){
     Song* song = findSongByIndex(musicIndex);

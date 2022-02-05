@@ -27,6 +27,7 @@ void command_process(){
 }
 int main(int argc, char const *argv[])
 {
+    init();
     command_process();
     return 0;
 }
