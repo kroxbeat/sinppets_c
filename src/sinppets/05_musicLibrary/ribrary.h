@@ -49,4 +49,8 @@ void add();
 Artist* findArtistPtrByName(char* name);
 Song* registNewSong(char* songName);
 Artist* makeNewArtist(char* artist);
+void search();
+Song* findSongByIndex(int musicIndex);
+void play(int musicindex);
+
 #endif

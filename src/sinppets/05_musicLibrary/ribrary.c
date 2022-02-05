@@ -4,6 +4,53 @@ Artist* artist_bucket[ARTIST_BUCKET_SIZE];
 SNode* song_bucket[SONG_BUCKET_SIZE];
 int total_song_count = 0;
 
+void play(int musicIndex){
+    Song* song = findSongByIndex(musicIndex);
+    if(song == NULL){
+        printf("%d 번 노래 가 없습니다.\n",musicIndex);
+    }else{
+        printf("play .. %s : %s \n",song->artist->name, song->title);
+    }
+
+}
+
+Song* findSongByIndex(int musicIndex){
+    SNode* curr = song_bucket[musicIndex % SONG_BUCKET_SIZE];
+    if(curr == NULL)
+    return NULL;
+    while (curr != NULL){
+        curr = curr->next;
+        if (curr->song->index == musicIndex){
+            return curr->song;
+        }
+        if(curr->next == NULL)
+        return NULL;
+    }
+    return NULL;
+}
+
+void search(){
+    char buf[BUF_SIZE];
+    printf("  Artist: ");
+    read_line(buf,BUF_SIZE-1);
+    char* artist = strdup(buf);
+    
+    //1. 가수 이름으로 된 Artist 노드 존재 확인
+    Artist* ptrArtist = findArtistPtrByName(artist);
+    if(ptrArtist == NULL){
+        printf("검색된 가수가 없습니다.\n");
+        return;
+    }
+    SNode* curr = ptrArtist->head;
+        while (curr != NULL){
+            printf("%d , %s , %s \n",curr->song->index, curr->song->artist->name, curr->song->title);
+            if(curr->next == NULL)
+                break;
+            curr = curr->next;
+        }
+
+}
+
 void status(){
     //모든 노래 데이터 화면출력
     for (int i = 0; i < SONG_BUCKET_SIZE; i++){
@@ -11,7 +58,6 @@ void status(){
         if(curr == NULL)
         continue;
 
-        printf("song_bucket index[%d]\n",i);
         while (curr->next != NULL){
             curr = curr->next;
             printf("%d , %s , %s \n",curr->song->index, curr->song->artist->name, curr->song->title);
@@ -71,7 +117,6 @@ void add(){
         
     }else{
     //가수가 없을때 새 가수 만들기
-    //printf("no singer %s \n",artist);
         ptrArtist = makeNewArtist(artist);
         //노래가 한곡도 없으니 SNode 리스트 head 를 만들어야 함
         ptrArtist->head = (SNode*)malloc(sizeof(SNode));
@@ -79,9 +124,7 @@ void add(){
         Song* newSong = registNewSong(title);
         newSong->artist = ptrArtist;
         ptrArtist->head->song = newSong;
-        //printf("newSong added %s  %s\n",newSong->artist->name , newSong->title);     
     }
-    //printf("added %s \n",title);
 }
 
 //새로운 노래를 등록
@@ -90,7 +133,6 @@ Song* registNewSong(char* songName){
     SNode* head = song_bucket[currIndex];
     if(head == NULL){
         song_bucket[currIndex] = (SNode*)malloc(sizeof(SNode));
-        //printf("헤드가 없어서 새로 만듬 \n");
     }
     SNode* curr = song_bucket[currIndex];
     while (curr->next != NULL)
@@ -102,7 +144,6 @@ Song* registNewSong(char* songName){
     newSong->index = total_song_count;
     newSong->title = songName;
     curr->next->song = newSong;
-    //printf("newSong added1  %s , %d\n" , newSong->title , newSong->index);
     return newSong;
 }
 

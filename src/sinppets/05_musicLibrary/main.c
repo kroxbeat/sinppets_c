@@ -10,12 +10,18 @@ void command_process(){
         //첫번째 단락
         char* cmd1 = strtok(buf,DELIMIT);
         if (cmd1 == NULL)   
-        continue;       
+        continue;
+
+        char* cmd2 = strtok(NULL,DELIMIT);
 
         if(strcmp(cmd1,"add") == 0){
             add();
         }else if(strcmp(cmd1,"status") == 0){
             status();
+        }else if(strcmp(cmd1,"search") == 0){
+            search();
+        }else if(strcmp(cmd1,"play") == 0){
+            play(atoi(cmd2));
         }
     }
 }
@@ -36,7 +42,7 @@ int main(int argc, char const *argv[])
 
 
     >status
-    1: 아이유 - 마음을드려요 , /Users//Users/junghyunkang/music/마음을드려요.mp3
+    1: 아이유 - 마음을드려요 , /Users/Users/music/마음을드려요.mp3
     .
     .
 
@@ -47,6 +53,8 @@ int main(int argc, char const *argv[])
     >search
         Artist: 가수 입력
         Title: 노래제목 입력
-    //status 의 filter  
+    
+    >play 1
+        playing .. 아이유 - 마음을드려요
 
 */
