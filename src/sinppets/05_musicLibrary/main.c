@@ -9,13 +9,20 @@ void command_process(){
         read_line(buf,BUF_SIZE-1);
         //첫번째 단락
         char* cmd1 = strtok(buf,DELIMIT);
+        if (cmd1 == NULL)   
+        continue;       
 
         if(strcmp(cmd1,"add") == 0){
             add();
         }else if(strcmp(cmd1,"status") == 0){
-            //status();
+            status();
         }
     }
+}
+int main(int argc, char const *argv[])
+{
+    command_process();
+    return 0;
 }
 /* 
     음악 재생 (fake) 프로그램
@@ -40,11 +47,6 @@ void command_process(){
     >search
         Artist: 가수 입력
         Title: 노래제목 입력
-    //status 의 filter   
+    //status 의 filter  
 
 */
-int main(int argc, char const *argv[])
-{
-    command_process();
-    return 0;
-}
